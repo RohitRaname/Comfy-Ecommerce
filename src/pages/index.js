@@ -7,5 +7,17 @@ import Error from "./ErrorPage";
 import Home from "./HomePage";
 import Private from "./PrivateRoute";
 import SharedLayout from "./SharedLayout";
+import AuthWrapper from "./AuthWrapper";
 
-export { About, Products, SingleProduct, Cart, Checkout, Error, Home, Private ,SharedLayout};
+export {
+  About,
+  Products,
+  SingleProduct,
+  Cart,
+  Checkout,
+  Error,
+  Home,
+  Private,
+  SharedLayout,
+  AuthWrapper,
+};

@@ -12,8 +12,6 @@ const Contact = () => {
             itaque ullam facere, consequatur voluptatem laboriosam aperiam ea
             vero corporis at delectus quia quae esse!
           </p>
-        </div>
-
         <form
           action="https://formspree.io/f/xayzlzov"
           method="POST"
@@ -30,6 +28,8 @@ const Contact = () => {
             subscribe
           </button>
         </form>
+        </div>
+
       </div>
     </Wrapper>
   );

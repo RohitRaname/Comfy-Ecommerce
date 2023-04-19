@@ -48,6 +48,7 @@ const SingleProductPage = () => {
     reviews,
     id: sku,
     company,
+    colors,
     images,
   } = single_product;
 
@@ -62,8 +63,8 @@ const SingleProductPage = () => {
           <ProductImages images={images} />
           <div className="content">
             <h3>{name}</h3>
-            <Stars />
-            <h5>{price}</h5>
+            <Stars stars={stars} reviews={reviews} />
+            <h5 className="price">{formatPrice( price)}</h5>
             <p className="desc">{description}</p>
             <p className="info">
               <span>Available: </span>
@@ -79,7 +80,7 @@ const SingleProductPage = () => {
             </p>
 
             <hr />
-            {stock > 0 && <AddToCart />}
+            {stock > 0 && <AddToCart product={single_product}/>}
           </div>
         </div>
       </section>

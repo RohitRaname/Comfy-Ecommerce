@@ -8,7 +8,7 @@ const AboutPage = () => {
     <Wrapper>
       <PageHero title="About" />
 
-      <section className="page section section-center">
+      <section className="section-about page-100 section section-center">
         <img src={aboutImg} alt="" />
 
         <article>
@@ -30,8 +30,10 @@ const AboutPage = () => {
 };
 
 const Wrapper = styled.main`
-  display: grid;
-  gap: 4rem;
+  .section-about {
+    display: grid;
+    gap: 4rem;
+  }
   img {
     width: 100%;
     display: block;
@@ -54,7 +56,9 @@ const Wrapper = styled.main`
     margin-left: 0;
   }
   @media (min-width: 992px) {
-    grid-template-columns: 1fr 1fr;
+    .section-about {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 `;
 export default AboutPage;

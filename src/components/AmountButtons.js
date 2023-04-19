@@ -1,17 +1,34 @@
-import React from 'react'
-import styled from 'styled-components'
-import { FaPlus, FaMinus } from 'react-icons/fa'
+import React, { useState } from "react";
+import styled from "styled-components";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import { useCartContext } from "../context/cart_context";
 
-const AmountButtons = () => {
-  return <h4>amount buttons </h4>
-}
+const AmountButtons = ({ amount, increase, decrease }) => {
+  return (
+    <Wrapper>
+      <div className="btn-container">
+        <div className="amount-btns">
+          <button className="amount-btn" onClick={decrease}>
+            <FaMinus />
+          </button>
+          <h2 className="amount">{amount}</h2>
+          <button className="amount-btn" onClick={increase}>
+            <FaPlus />
+          </button>
+        </div>
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
-  display: grid;
-  width: 140px;
-  justify-items: center;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: center;
+  .amount-btns {
+    display: grid;
+    width: 140px;
+    justify-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+  }
   h2 {
     margin-bottom: 0;
   }
@@ -29,6 +46,6 @@ const Wrapper = styled.div`
   h2 {
     margin-bottom: 0;
   }
-`
+`;
 
-export default AmountButtons
+export default AmountButtons;

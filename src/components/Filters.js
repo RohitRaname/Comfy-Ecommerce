@@ -1,12 +1,137 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useFilterContext } from '../context/filter_context'
-import { getUniqueValues, formatPrice } from '../utils/helpers'
-import { FaCheck } from 'react-icons/fa'
+import React from "react";
+import styled from "styled-components";
+import { useFilterContext } from "../context/filter_context";
+import { getUniqueValues, formatPrice } from "../utils/helpers";
+import { FaCheck } from "react-icons/fa";
 
 const Filters = () => {
-  return <h4>filters</h4>
-}
+  const {
+    filters: {
+      text,
+      category,
+      company,
+      color,
+      price,
+      min_price,
+      max_price,
+      shipping,
+    },
+    filtered_products,
+    all_products,
+    updateFilters,
+    clearFilters,
+  } = useFilterContext();
+
+  const categories = getUniqueValues(all_products, "category");
+  const companies = getUniqueValues(all_products, "company");
+  const colors = getUniqueValues(all_products, "colors");
+
+  return (
+    <Wrapper>
+      <form action="" onSubmit={(e) => e.preventDefault()}>
+        <div className="form-control">
+          <input
+            type="text"
+            name="text"
+            className="search-input"
+            value={text}
+            onChange={updateFilters}
+          />
+        </div>
+
+        <div className="form-control">
+          <h5>Category</h5>
+          {categories.map((c) => (
+            <button
+              type="button"
+              className={`${
+                category.toLowerCase() === c.toLowerCase() ? "active" : ""
+              }`}
+              name="category"
+              value={c}
+              onClick={updateFilters}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+        <div className="form-control">
+          <h5>Company</h5>
+          <select name="company" id="company" onChange={updateFilters} value={company}>
+            {companies.map((c) => (
+              <option value={c}>{c}</option>
+            ))}
+          </select>
+        </div>
+        <div className="form-control">
+          <h5>Colors</h5>
+
+          <div className="colors">
+            {colors.map((c) => {
+              if (c === "all")
+                return (
+                  <button
+                    type="button "
+                    className={`${
+                      color.toLowerCase() === c.toLowerCase()
+                        ? "active   color-all-btn "
+                        : "color-all-btn"
+                    }`}
+                    name="color"
+                    value={c}
+                    onClick={updateFilters}
+                  >
+                    {c}
+                  </button>
+                );
+
+              return (
+                <button
+                  className={`${
+                    c === color ? "color-btn active" : "color-btn"
+                  }`}
+                  name="color"
+                  value={c}
+                  style={{ background: c }}
+                  onClick={updateFilters}
+                >
+                  {c === color && <FaCheck />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        <div className="form-control">
+          <h5>Price</h5>
+
+          <p className="price">{formatPrice(price)}</p>
+
+          <input
+            type="range"
+            min={min_price}
+            max={max_price}
+            onChange={updateFilters}
+            name="price"
+            value={price}
+          />
+        </div>
+        <div className="form-control shipping">
+          <label htmlFor="shipping">Free Shipping</label>
+
+          <input
+            type="checkbox"
+            onChange={updateFilters}
+            name="shipping"
+            id="shipping"
+            checked={shipping}
+          />
+        </div>
+
+        <button className="clear-btn" onClick={clearFilters}>Clear filters</button>
+      </form>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   .form-control {
@@ -50,6 +175,9 @@ const Wrapper = styled.section`
   .colors {
     display: flex;
     align-items: center;
+  }
+  .color-all-btn {
+    margin-right: 0.24rem;
   }
   .color-btn {
     display: inline-block;
@@ -106,6 +234,6 @@ const Wrapper = styled.section`
       top: 1rem;
     }
   }
-`
+`;
 
-export default Filters
+export default Filters;

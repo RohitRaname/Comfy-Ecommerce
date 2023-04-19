@@ -1,13 +1,55 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { FaCheck } from 'react-icons/fa'
-import { useCartContext } from '../context/cart_context'
-import AmountButtons from './AmountButtons'
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FaCheck } from "react-icons/fa";
+import { useCartContext } from "../context/cart_context";
+import AmountButtons from "./AmountButtons";
 
-const AddToCart = () => {
-  return <h4>addToCart </h4>
-}
+const AddToCart = ({ product }) => {
+  const { colors, stock, id } = product;
+  const { addToCart } = useCartContext();
+
+  const [mainColor, setMainColor] = useState(colors[0]);
+  const [qty, setQty] = useState(stock);
+
+  const increase = () =>
+    setQty((oldQty) => (oldQty + 1 > stock ? oldQty : oldQty + 1));
+  const decrease = () =>
+    setQty((oldQty) => (oldQty - 1 < 0 ? oldQty : oldQty - 1));
+
+  return (
+    <Wrapper>
+      <div className="colors">
+        <span>Colors:</span>
+        <div>
+          {colors.map((color, i) => (
+            <button
+              key={i}
+              className={`color-btn ${color === mainColor ? "active" : ""}`}
+              style={{ background: color }}
+              onClick={() => setMainColor(color)}
+            >
+              {color === mainColor ? <FaCheck /> : ""}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <AmountButtons
+        increase={increase}
+        decrease={decrease}
+        amount={qty}
+      />
+      <Link
+        to="/cart"
+        className="btn"
+        onClick={() => addToCart(id, mainColor, qty, product)}
+      >
+        ADD TO CART
+      </Link>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   margin-top: 2rem;
@@ -53,5 +95,5 @@ const Wrapper = styled.section`
     margin-top: 1rem;
     width: 140px;
   }
-`
-export default AddToCart
+`;
+export default AddToCart;

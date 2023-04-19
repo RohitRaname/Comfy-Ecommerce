@@ -23,8 +23,8 @@ const Hero = () => {
       </article>
 
       <article className="img-container">
-        <img src={heroBcg} alt="nice table" className="main-img" />
-        <img src={heroBcg2} alt="nice-table" className="main-img" />
+        <img src={heroBcg} alt="nice table" className="accent-img" />
+        <img src={heroBcg2} alt="nice-table" className="accent-img" />
       </article>
     </Wrapper>
   );
